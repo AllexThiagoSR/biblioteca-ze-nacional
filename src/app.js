@@ -25,7 +25,7 @@ app.get('/books', async (req, res) => {
 
 app.get('/books/:id', async (req, res) => {
   const { id } = req.params;
-  const [[livro]] = await dbConnection.execute(`SELECT * FROM books WHERE id = ${id}`);
+  const [livro] = await dbConnection.execute(`SELECT * FROM books WHERE id = ${id}`);
   return res.status(200).json(livro)
 });
 
@@ -57,18 +57,15 @@ app.post('/books/borrow', async (req, res) => {
   let day = today.getDate();
 
   today = year + '-' + month + '-' + day;
-  const borrowPromise = dbConnection.execute(
-    `INSERT INTO rentals (book_id, user_id, rental_date)
-    VALUES (${bookId}, ${userId}, '${today}')`
-  );
-  const bookBorrowStatus = dbConnection.execute(
-    `UPDATE books SET is_rented = 1
-    WHERE id = ${bookId}`
-  );
-
   try {
-    await Promise.all([borrowPromise, bookBorrowStatus]);
-
+    await dbConnection.execute(
+      `INSERT INTO rentals (book_id, user_id, rental_date)
+      VALUES (${bookId}, ${userId}, '${today}')`
+    );
+    await dbConnection.execute(
+      `UPDATE books SET is_rented = 1
+      WHERE id = ${bookId}`
+    );
     return res.status(200).json({
       message: `Book with id ${bookId} borrowed by userId ${userId} at ${today}`
     });  
