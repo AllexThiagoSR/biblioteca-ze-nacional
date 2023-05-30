@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `biblioteca_nacional`.`books` (
   UNIQUE INDEX `title` (`title` ASC) VISIBLE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;;
+COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `biblioteca_nacional`.`users` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;;
+COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `biblioteca_nacional`.`rentals` (
     REFERENCES `biblioteca_nacional`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;;
+COLLATE = utf8mb4_unicode_ci;
 
 INSERT INTO users(username, password, role)
 VALUES 
@@ -100,4 +100,5 @@ INSERT INTO biblioteca_nacional.rentals (book_id, user_id, rental_date, returned
 (2, 1, '2023-05-01', NULL),
 (5, 3, '2023-05-03', NULL),
 (7, 2, '2023-05-05', NULL),
+(1, 2, '2023-05-01', '2023-05-05'),
 (10, 9, '2023-05-20', NULL);
