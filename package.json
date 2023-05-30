@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node .",
     "dev": "nodemon .",
-    "test": "mocha __tests__/**/*test.js"
+    "test": "mocha __tests__/**/*test.js",
+    "db:restore": "./db_restore.sh"
   },
   "keywords": [],
   "author": "sobrinho do seu zé",
