@@ -2,9 +2,9 @@ const Sequelize = require('sequelize');
 const config = require('../config/config');
 const { User } = require('../models');
 const serviceReturn = require('../utils/mountServiceReturn');
+const jwt = require('jsonwebtoken');
 
 const env = process.env.NOODE_ENV || 'development';
-
 const seq = new Sequelize(config[env]);
 
 const create = async (username, password) => {
@@ -21,4 +21,21 @@ const create = async (username, password) => {
   }
 };
 
-module.exports = { create };
+const login = async (username, password) => {
+  const secretKey = process.env.JWT_SECRET;
+  const jwtConfig = { expiresIn: '2d', algorithm: 'HS256' };
+  try {
+    const user = await User.findOne({ where: { username } });
+    if (!user || user.password !== password) return serviceReturn(401, 'Incorrect username or password ');
+    const token = jwt.sign(
+      { user: { username, id: user.id, role: user.role } },
+      secretKey,
+      jwtConfig,
+    );
+    return serviceReturn(200, { token });
+  } catch (error) {
+    return serviceReturn(500, 'Internal server error');
+  }
+};
+
+module.exports = { create, login };

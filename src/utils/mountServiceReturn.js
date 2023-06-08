@@ -1,5 +1,5 @@
 const serviceReturn = (status, payload) => {
-  const data = typeof payload === 'string' ? { messa: payload } : payload; 
+  const data = typeof payload === 'string' ? { message: payload } : payload; 
   return { status, data };
 };
 
