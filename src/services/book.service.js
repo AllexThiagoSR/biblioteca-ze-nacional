@@ -29,17 +29,17 @@ const getById = async (id) => {
 
 const borrow = async (bookId, userId) => {
   const transaction = await seq.transaction();
+  const book = await Book.findByPk(bookId);
+  if (!book) return { status: 404, data: { message: `Not found: Book with the id ${bookId}` } };
+  if (book.isRented) {
+    return { status: 409, data: { message: `Book with id ${bookId} is already borrowed` } };
+  }
+  const user = await User.findByPk(userId);
+  if (!user) return { status: 404, data: { message: `Not found: User with the id ${userId}` } };
   try {
-    const book = await Book.findByPk(bookId);
-    if (!book) return { status: 404, data: { message: `Not found: Book with the id ${bookId}` } };
-    if (book.isRented) {
-      return { status: 409, data: { message: `Book with id ${bookId} is already borrowed` } };
-    }
-    const user = await User.findByPk(userId);
-    if (!user) return { status: 404, data: { message: `Not found: User with the id ${userId}` } };
-    await Book.update({ isRented: true }, { where: { id: bookId } });
+    await Book.update({ isRented: true }, { where: { id: bookId }, transaction });
     const date = todayDate();
-    await Rental.create({ bookId, userId, rentalDate: date });
+    await Rental.create({ bookId, userId, rentalDate: date }, { transaction });
     await transaction.commit();
     return {
       status: 200,
@@ -47,10 +47,42 @@ const borrow = async (bookId, userId) => {
         message: `Book with id ${bookId} borrowed by userId ${userId} at ${date}`
       },
     }; 
-  } catch (error) {
+  } catch (err) {
     await transaction.rollback();
+    if (err.original.code === 'ER_DUP_ENTRY') {
+      return { status: 409, data: { message: `Sorry! You've already borrowed the book with id ${bookId}` } };
+    }
     return { status: 500, data: { message: 'Internal server error' } };
   }
 };
 
-module.exports = { getAll, getById, borrow };
+const returnBook = async (bookId, userId) => {
+  const transaction = await seq.transaction();
+  const book = await Book.findByPk(bookId);
+  if (!book) return { status: 404, data: { message: `Not found: Book with the id ${bookId}` } };
+  if (!book.isRented) {
+    return { status: 409, data: { message: `Book with id ${bookId} is not borrowed` } };
+  }
+  const user = await User.findByPk(userId);
+  if (!user) return { status: 404, data: { message: `Not found: User with the id ${userId}` } };
+  try {
+    const today = todayDate();
+    await Promise.all([
+      Book.update({ isRented: false }, { where: { id: bookId }, transaction }),
+      Rental.update({ returnedAt: today }, { where: { bookId, userId }, transaction })
+    ]);
+    await transaction.commit();
+    return {
+      status: 200,
+      data: {
+        message: `Book with id ${bookId} returned by userId ${userId} at ${today}`
+      },
+    };
+  } catch (error) {
+    await transaction.rollback();
+    console.log(error.message);
+    return { status: 500, data: { message: 'Internal server error' } };
+  }
+};
+
+module.exports = { getAll, getById, borrow, returnBook };
