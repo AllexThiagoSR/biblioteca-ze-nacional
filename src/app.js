@@ -7,6 +7,7 @@ const app = express();
 app.use(express.json());
 
 app.get('/books', async (req, res) => {
+  console.log(process.env.DATABASE);
   let { isRented } = req.query;
   let [livros] = await dbConnection.execute('SELECT * FROM books');
   livros = camelize(livros);
