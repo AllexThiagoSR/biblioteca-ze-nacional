@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, _Sequelize) => {
     await queryInterface.bulkInsert(
-      'People',
+      'books',
       [
         {
           title: 'O Grand Gatsby',
@@ -45,7 +45,8 @@ module.exports = {
           is_rental: true,
         },
       ],
-    {});
+      {},
+    );
   },
 
   down: async (queryInterface, _Sequelize) => {
