@@ -13,7 +13,7 @@ const dbConnection = mysql.createPool({
   port: MYSQL_PORT,
   user: MYSQL_USER,
   password: MYSQL_PASSWORD,
-  database: DATABASE,
+  database: DATABASE + '_development',
 })
 
 module.exports = {

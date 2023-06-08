@@ -7,24 +7,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/books', bookRouter)
-
-app.get('/books', async (req, res) => {
-  let { isRented } = req.query;
-  let [livros] = await dbConnection.execute('SELECT * FROM books');
-  livros = camelize(livros);
-  if (isRented) {
-    isRented = isRented === 'true' ? 1 : 0;
-    
-    livros = livros.filter((livro) => 
-      livro.isRented === isRented
-    );
-  }
-  return res.status(200).json({
-    total: livros.length,
-    livros
-  });
-});
+app.use('/books', bookRouter);
 
 app.get('/books/:id', async (req, res) => {
   const { id } = req.params;
