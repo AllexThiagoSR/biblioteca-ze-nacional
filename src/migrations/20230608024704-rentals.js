@@ -5,12 +5,6 @@ module.exports = {
     await queryInterface.createTable(
       'rentals',
       {
-        id: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          primaryKey: true,
-          autoIncrement: true,
-        },
         userId: {
           field: 'user_id',
           type: Sequelize.INTEGER,

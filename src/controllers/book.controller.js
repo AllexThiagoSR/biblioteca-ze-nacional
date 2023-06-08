@@ -13,6 +13,7 @@ const getById = async (req, res) => {
 const borrow = async (req, res) => {
   const { bookId, userId } = req.body;
   const { status, data } = await bookService.borrow(bookId, userId);
+  return res.status(status).json(data);
 };
 
 module.exports = { getAll, getById, borrow };
