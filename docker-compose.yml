@@ -1,29 +1,27 @@
 version: '3'
 
 services:
-  biblioteca_nacional_api:
-    container_name: api
-    image: node:18-alpine
-    ports:
-      - 3000:3000
-    tty: true
-    stdin_open: true
-    working_dir: /usr/app
-    volumes:
-      - ./:/usr/app
-    env_file:
-      - ./.env
+  # biblioteca_nacional_api:
+  #   container_name: api
+  #   image: node:18-alpine
+  #   ports:
+  #     - 3000:3000
+  #   tty: true
+  #   stdin_open: true
+  #   working_dir: /usr/app
+  #   volumes:
+  #     - ./:/usr/app
+  #   env_file:
+      # - ./.env
   db:
     container_name: banco_sql
     image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: biblioteca_nacional
     ports:
       - 3306:3306
     volumes:
       - data:/var/lib/mysql
-      - ./dumps/:/docker-entrypoint-initdb.d/
 
 volumes:
   data:
