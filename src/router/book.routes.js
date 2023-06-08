@@ -7,4 +7,6 @@ router.get('/', bookController.getAll);
 
 router.get('/:id', bookController.getById);
 
+router.post('/borrow');
+
 module.exports = router;

@@ -7,7 +7,7 @@
     "start": "node .",
     "dev": "nodemon .",
     "test": "mocha __tests__/**/*test.js",
-    "db:restore": "./db_restore.sh"
+    "db:restore": "env $(cat .env) npx sequelize db:drop && env $(cat .env) npx sequelize db:create && env $(cat .env) npx sequelize db:migrate && env $(cat .env) npx sequelize db:seed:all"
   },
   "keywords": [],
   "author": "sobrinho do seu zé",

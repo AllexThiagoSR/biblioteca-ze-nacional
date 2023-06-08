@@ -10,4 +10,9 @@ const getById = async (req, res) => {
   return res.status(status).json(data);
 };
 
-module.exports = { getAll, getById };
+const borrow = async (req, res) => {
+  const { bookId, userId } = req.body;
+  const { status, data } = await bookService.borrow(bookId, userId);
+};
+
+module.exports = { getAll, getById, borrow };
