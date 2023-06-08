@@ -7,42 +7,42 @@ module.exports = {
       [
         {
           title: 'O Grand Gatsby',
-          is_rental: false,
+          is_rented: false,
         },{
           title: '1984',
-          is_rental: true,
+          is_rented: true,
         },
         {
           title: 'Dom Quixote',
-          is_rental: false,
+          is_rented: false,
         },
         {
           title: 'A Revolução dos Bichs',
-          is_rental: false,
+          is_rented: false,
         },
         {
           title: 'Cem Anos de Solidao',
-          is_rental: true,
+          is_rented: true,
         },
         {
           title: 'Ulisses',
-          is_rental: false,
+          is_rented: false,
         },
         {
           title: 'A Divina Comedia',
-          is_rental: true,
+          is_rented: true,
         },
         {
           title: 'Em Busca do Tempo Perdido',
-          is_rental: false,
+          is_rented: false,
         },
         {
           title: 'Moby Dick',
-          is_rental: false,
+          is_rented: false,
         },
         {
           title: 'O Senhor dos Aneis',
-          is_rental: true,
+          is_rented: true,
         },
       ],
       {},
