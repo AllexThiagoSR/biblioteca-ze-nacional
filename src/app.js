@@ -1,10 +1,13 @@
 const express = require('express');
 const camelize = require('camelize');
 const { dbConnection } = require('./db/connection');
+const { bookRouter } = require('./router');
 
 const app = express();
 
 app.use(express.json());
+
+app.use('/books', bookRouter)
 
 app.get('/books', async (req, res) => {
   let { isRented } = req.query;
