@@ -39,8 +39,7 @@ const borrow = async (bookId, userId) => {
     if (!user) return { status: 404, data: { message: `Not found: User with the id ${userId}` } };
     await Book.update({ isRented: true }, { where: { id: bookId } });
     const date = todayDate();
-    console.log(date);
-    const { rentalDate } = await Rental.create({ bookId, userId, rentalDate: date });
+    await Rental.create({ bookId, userId, rentalDate: date });
     await transaction.commit();
     return {
       status: 200,

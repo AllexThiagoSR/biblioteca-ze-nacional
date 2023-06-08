@@ -6,6 +6,16 @@ module.exports = {
       'users',
       [
         {
+          username: 'Sobrinho do seu Ze',
+          password: '123456',
+          role: 1,
+        },
+        {
+          username: 'Seu Ze',
+          password: '123456',
+          role: 1,
+        },
+        {
           username: 'johnsmith',
           password: 'B@1P45sw',
           role: 2,
