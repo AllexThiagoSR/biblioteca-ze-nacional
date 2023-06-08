@@ -9,12 +9,6 @@ app.use(express.json());
 
 app.use('/books', bookRouter);
 
-app.get('/books/:id', async (req, res) => {
-  const { id } = req.params;
-  const [livro] = await dbConnection.execute(`SELECT * FROM books WHERE id = ${id}`);
-  return res.status(200).json(livro)
-});
-
 app.post('/books/borrow', async (req, res) => {
   const { bookId, userId } = req.body;
 
