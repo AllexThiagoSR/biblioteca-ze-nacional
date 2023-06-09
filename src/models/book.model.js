@@ -1,3 +1,4 @@
+'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Book = sequelize.define(
     'Book',
@@ -16,5 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false,
     },
   );
+  Book.associate = ({ Rental }) => {
+    Book.hasMany(Rental, { foreignKey: 'bookId', as: 'rentals' });
+  };
   return Book;
 };

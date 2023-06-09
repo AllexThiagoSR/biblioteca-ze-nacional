@@ -7,7 +7,6 @@ const validateToken = async (req, res, next) => {
   try {
     const data = jwt.verify(token, secretKey);
     req.user = data.user;
-    if (data.user.role !== 1) return res.status(403).json({ message: "You can't access this page" });
     return next();
   } catch (error) {
     return res.status(401).json({ message: error.message });

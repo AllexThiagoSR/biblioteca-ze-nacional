@@ -1,7 +1,18 @@
+'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Rental = sequelize.define(
     'Rental',
     {
+      userId: {
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+        foreignKey: true,
+      },
+      bookId: {
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+        foreignKey: true,
+      },
       rentalDate: DataTypes.DATE,
       returnedAt: DataTypes.DATE,
     },
@@ -13,6 +24,15 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Rental.associate = ({ User, Book }) => {
+    Rental.belongsTo(User, {
+      foreignKey: 'userId',
+      as: 'user',
+    });
+    Rental.belongsTo(Book, {
+      foreignKey: 'bookId',
+      as: 'book',
+    });
+
     User.belongsToMany(
       Book,
       {
