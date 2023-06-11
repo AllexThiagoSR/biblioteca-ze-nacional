@@ -12,7 +12,7 @@ const create = async (username, password) => {
   try {
     const user = await User.create({ username, password }, { transaction });
     await transaction.commit();
-    return serviceReturn(200, user);
+    return serviceReturn(200, { id: user.id, username: user.username });
   } catch (error) {
     await transaction.rollback();
     console.log(error.original.code);
