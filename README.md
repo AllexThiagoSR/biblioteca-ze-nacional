@@ -18,7 +18,7 @@ $ git clone git@github.com:AllexThiagoSR/biblioteca-ze-nacional.git
 Acesse a pasta
 
 ```
-$ cd sd-028-desafio-extra-nodejs
+$ cd biblioteca-ze-nacional
 ```
 
 Acesse a branch onde o projeto está implementado se não estiver nela
