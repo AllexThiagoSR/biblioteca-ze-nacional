@@ -12,7 +12,7 @@ Siga este passo a passo para testar este repositório.
 Clone o repositório para sua máquina local
 
 ```
-$ git clone git@github.com:tryber/sd-028-desafio-extra-nodejs.git
+$ git clone git@github.com:AllexThiagoSR/biblioteca-ze-nacional.git
 ```
 
 Acesse a pasta
@@ -21,10 +21,10 @@ Acesse a pasta
 $ cd sd-028-desafio-extra-nodejs
 ```
 
-Acesse a branch onde o projeto está implementado
+Acesse a branch onde o projeto está implementado se não estiver nela
 
 ```
-$ git checkout allex-thiago-desafio-extra
+$ git checkout main
 ```
 
 ## Iniciar a aplicação
